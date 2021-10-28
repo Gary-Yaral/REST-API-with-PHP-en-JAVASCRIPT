@@ -2,7 +2,7 @@
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'DELETE') {
-  $data = json_decode(file_get_contents('php://input'));  
+  $data = json_decode(file_get_contents('php://input'));
   $direccion = dirname(__DIR__)."/api/data.json";
   $contenido = json_decode(file_get_contents($direccion),true);
   $newArray = array();
@@ -19,9 +19,9 @@ if ($method === 'DELETE') {
   file_put_contents($direccion,$json);
   
   if($exists === true) {
-    echo json_encode(array("Response" => "Deleted"));
+    echo json_encode(array("message" => "Deleted"));
   } else {
-    echo json_encode(array("Error" => "Not exists"));
+    echo json_encode(array("message" => "Not exists"));
   }
   
 }

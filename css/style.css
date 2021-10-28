@@ -7,10 +7,9 @@
 body{
   width: 100%;
   height: 100vh;
-  background: gray;
+  background: rgb(141, 91, 91);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 }
 
 form{
@@ -46,4 +45,19 @@ section select{
 
 select{
   width: 100px;
+}
+
+table{
+  background: #fff;
+  margin-top: 1rem;
+  width: 80%;
+}
+
+td{
+  text-align:center;
+  vertical-align: center;
+}
+
+.hidden{
+  display: none;
 }
