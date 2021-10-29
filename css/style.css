@@ -1,15 +1,50 @@
+:root{
+  --green: rgb(44, 126, 141);
+  --red: rgb(197, 80, 80);
+  --btn-radius:.3rem;
+}
+
 *{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: Arial;
+  font-size: 14px;
+}
+
+html{
+  width:100%;
+  height:100%;
 }
 
 body{
   width: 100%;
-  height: 100vh;
-  background: rgb(141, 91, 91);
+  max-height: 100%;
+  height:100vh;
+  background: rgb(243, 245, 245);
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+  overflow:auto;
+}
+
+.container{
+  width: 95%;
+  background: rgb(243, 245, 245);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+h2{
+  font-size: 2rem;
+  width: 100%;
+  justify-content: center;
+  display:flex;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 form{
@@ -17,7 +52,7 @@ form{
   padding: 1rem;
   height: fit-content;
   display: flex;
-  width: 240px;
+  width: 100%;
   height: fit-content;
   flex-direction: column;
   background: rgb(255, 255, 255);
@@ -29,9 +64,34 @@ form section{
   flex-direction: column;
 }
 
+input{
+  height: 2rem;
+  box-sizing: border-box;
+  padding: .5rem .5rem;
+  border: 1px solid rgb(211, 211, 211);
+  outline: none;
+  margin-bottom: .5rem;
+}
+
+input:focus{
+  border: 1px solid rgb(100, 100, 253);
+}
+
 section label,
 input[type='submit']{
   margin-top: 1rem;
+  border: none;
+}
+
+input[type='submit']{
+  background:var(--green);
+  color:#fff;
+  border-radius: var(--btn-radius);
+  cursor:pointer;
+}
+
+input[type='submit']:focus{
+  border:none;
 }
 
 section select{
@@ -50,12 +110,122 @@ select{
 table{
   background: #fff;
   margin-top: 1rem;
-  width: 80%;
+  width: calc(100%);
+  min-width: 700px;
+  border-collapse: collapse;
+  min-height: fit-content;
 }
+
 
 td{
   text-align:center;
   vertical-align: center;
+  min-height: 2rem;
+}
+
+td div{
+  min-width: 180px;
+  max-width: 180px;
+  display:flex;
+  justify-content: space-evenly;
+}
+
+th:first-child,
+td:first-child{
+  position: sticky;
+  left: 0;
+  background: #fff;
+  min-width: 3rem;
+}
+
+th:last-child,
+td:last-child{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+tr:nth-child(even),
+tr:nth-child(even) .table-id{
+  background: rgb(246, 246, 246);
+}
+
+.data-form{
+  width: 250px;
+}
+
+.data-table{
+  margin-top: 2rem;
+  width: 100%;
+  overflow:auto;
+  margin-bottom: 2rem;
+}
+
+.card{
+  box-shadow: 0 0 5px 3px rgb(214, 214, 214);
+}
+
+button{
+  min-width: 80px;
+  border: none;
+  height: 1.8rem;
+  box-sizing: border-box;
+  padding: .5rem;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  outline:none;
+  cursor: pointer;
+  border-radius: var(--btn-radius);
+}
+
+footer{
+  width:100%;
+  display: flex;
+  min-height: 4rem;
+  background: rgb(56, 56, 58);
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit{
+  background: var(--green);
+  color:#fff;
+}
+
+.delete{
+  background:var(--red);
+  color:#fff;
+}
+
+.update{
+  width:100%;
+  height:100vh;
+  position: fixed;
+  background: rgba(7, 7, 7, 0.596);
+  z-index: 2;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+}
+
+.close{
+  position: absolute;
+  top:0;
+  right: 0;
+  color: #fff;
+  font-size: 1.2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  cursor:pointer;
+}
+
+.form-update{
+  width: 260px;
 }
 
 .hidden{
