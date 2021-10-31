@@ -8,26 +8,32 @@
 
     $data = json_decode(file_get_contents('php://input'));
     $direccion = dirname(__DIR__)."/api/data.json";
-    $contenido = json_decode(file_get_contents($direccion),true);
-   
+    $json_file = json_decode(file_get_contents($direccion),true);
+    
     if($data !== null ) {
       $exists = false;
-      for($i = 0; $i < count($contenido); $i++) {
-        if($contenido[$i]["id"] === $data->id){
-          $contenido[$i]["name"] = $data->name;
-          $json = json_encode($contenido);
+
+      for ($i = 0; $i < count($json_file); $i++) {
+        if ($json_file[$i]["id"] === $data->id){
+          $json_file[$i]["name"] = $data->name;
+          $json_file[$i]["description"] = $data->description;
+          $json_file[$i]["author"] = $data->author;
+          $json_file[$i]["year"] = $data->year;
+
+          $json = json_encode($json_file);
           $exists = true;
+
           file_put_contents($direccion,$json);
-          echo json_encode(array("response" => "Updated"));
+          echo json_encode(array("message" => "Updated"));
         }
       }
 
-      if($exists === false) {
-        echo json_encode(array("Error" => "Not exists"));
+      if ($exists === false) {
+        echo json_encode(array("message" => "Not exists this book"));
       }
 
     } else {
-      echo json_encode(array("Error" => "Not exists"));
+      echo json_encode(array("message" => "Empty values"));
     }
     
   }

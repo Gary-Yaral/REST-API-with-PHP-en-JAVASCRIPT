@@ -53,19 +53,25 @@ table.addEventListener('click', (e) => {
     updateModal.classList.remove('hidden'); 
     let parent = btn.parentNode.parentNode.parentNode;
     let id = parent.querySelectorAll('td')[0].innerHTML;
+    updateForm.querySelector('#name').value = parent.querySelectorAll('td')[1].innerHTML;
+    updateForm.querySelector('#description').value = parent.querySelectorAll('td')[2].innerHTML;
+    updateForm.querySelector('#author').value = parent.querySelectorAll('td')[3].innerHTML;
+    updateForm.querySelector('#year').value = parent.querySelectorAll('td')[4].innerHTML;
     updateModal.setAttribute('update',id);
+    console.log('here')
 
   }
 })
 
 function update(idUpdate, form) {
   let formData = new FormData(form);
+  let id = parseInt(idUpdate);
   let name = formData.get('name');
   let description = formData.get('description');
   let author = formData.get('author');
   let year = formData.get('year');
   let data = {
-    "id":idUpdate,
+    "id":id,
     "name": name,
     "description": description,
     "author": author,
@@ -81,7 +87,7 @@ function update(idUpdate, form) {
   })
   .then(response => response.json())
   .then(response =>  {
-    alert(response.message);
+    console.log(response);
   })
 }
 
@@ -166,7 +172,7 @@ form.addEventListener('submit', (event) => {
     alert('Debe llenar todos los campos');
   }
 
-  if (verifyEmpty(formData) === true) {
+  if (verifyEmpty(event.currentTarget) === true) {
     insert();
   }
 })
@@ -180,7 +186,6 @@ updateForm.addEventListener('submit', (event) => {
 
   if (verifyEmpty(event.currentTarget) === true) {
     let id = updateModal.getAttribute('update');
-    update(id,event.currentTarget);
+    update(id, event.currentTarget);
   }
 })
-

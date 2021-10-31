@@ -63,6 +63,7 @@
       </section>
     </form>
   </section>
+  <script src="js/modal-alert.js"></script>
   <script src="js/api.js"></script>
 </body>
 </html>

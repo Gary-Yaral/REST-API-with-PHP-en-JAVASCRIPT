@@ -1,9 +1,0 @@
-{
-  "connection":{
-    "host": "localhost",
-    "user": "root",
-    "password": "",
-    "database": "my_bd"
-  }
-}
-
