@@ -21,8 +21,8 @@ function renderTable(data) {
       <td>${book.year}</td>
       <td>
         <div>
-          <button class='edit'>Editar</button>
-          <button class='delete'>Eliminar</button>
+          <button class='update'>Update</button>
+          <button class='delete'>Delete</button>
         </div>
       </td>
     `;
@@ -49,7 +49,7 @@ table.addEventListener('click', (e) => {
     delete_data(parent);
   }
 
-  if (btn.classList.contains('edit')) { 
+  if (btn.classList.contains('update')) { 
     updateModal.classList.remove('hidden'); 
     let parent = btn.parentNode.parentNode.parentNode;
     let id = parent.querySelectorAll('td')[0].innerHTML;
@@ -58,8 +58,6 @@ table.addEventListener('click', (e) => {
     updateForm.querySelector('#author').value = parent.querySelectorAll('td')[3].innerHTML;
     updateForm.querySelector('#year').value = parent.querySelectorAll('td')[4].innerHTML;
     updateModal.setAttribute('update',id);
-    console.log('here')
-
   }
 })
 
@@ -77,20 +75,34 @@ function update(idUpdate, form) {
     "author": author,
     "year": year
   }
-  
-  fetch('update.php',{
-    method: 'PUT',
-    body: JSON.stringify(data),
-    headers:{
-      "Content-type": "application/json;charset=UTF-8",
-    },
+  swal({
+    title:'Are you sure?',
+    text: 'Once updated, you could lost some data',
+    icon: 'warning',
+    buttons: true
   })
-  .then(response => response.json())
-  .then(response =>  {
-    console.log(response);
-  })
+    .then((degree) => {
+      fetch('update.php',{
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers:{
+          "Content-type": "application/json;charset=UTF-8",
+        },
+      })
+      .then(response => response.json())
+      .then(response =>  {
+        if(response.message === 'Updated'){
+          swal('Changes have been saved',{
+            icon: 'success'
+          })
+            .then(ok => {
+              updateModal.classList.add('hidden');
+              get_data();
+            })
+        }
+      })
+    }) 
 }
-
 
 function insert() {
   let formData = new FormData();
@@ -102,35 +114,58 @@ function insert() {
   formData.append('description',description.value);
   formData.append('author',author.value);
   formData.append('year',year.value);
-
-  fetch('insert.php',{
-    method: 'POST',
-    body: formData
+  swal({
+    title: 'Would you like save this book?',
+    icon: 'warning',
+    buttons: true,
   })
-  .then(response => response.json())
-  .then(response =>  {
-    alert(response.message);
-    get_data();
-    form.reset();
-  })
-
-  get_data();
+    .then(agree => {
+      fetch('insert.php',{
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(response =>  {
+        if (response.message === 'Added') {
+          swal('Product has been added', {
+            icon:'success'
+          })
+            .then(ok => {
+              get_data();
+              form.reset();
+            }) 
+        }
+      })
+    }) 
 }
 
 function delete_data(parentNode) {
   let id = parentNode.querySelectorAll('td')[0].innerHTML;
-
-  fetch('delete.php',{
-    method: 'DELETE',
-    body: JSON.stringify({"id":parseInt(id)}),
-    headers:{
-      "Content-type": "application/json;charset=UTF-8",
-    },
+  swal({
+    title: 'Are you sure?',
+    text: 'Once deleted, you will not be able to recover this book',
+    icon: 'warning',
+    buttons: true,
   })
-    .then(response => response.json())
-    .then(response =>  {
-      get_data();
-      alert(response.message);
+    .then(agree => {
+      fetch('delete.php',{
+        method: 'DELETE',
+        body: JSON.stringify({"id":parseInt(id)}),
+        headers:{
+          "Content-type": "application/json;charset=UTF-8",
+        },
+      })
+        .then(response => response.json())
+        .then(response =>  {
+          if (response.message === 'Deleted') {
+            swal('Book has been deleted',{
+              icon:'success'
+            })
+            .then(ok => {
+              get_data();
+            })
+          }
+        })
     })
 }
 
@@ -162,7 +197,6 @@ function verifyEmpty(form) {
 
 closeModal.addEventListener('click', () => {
   updateModal.classList.add('hidden');
-  console.log(updateModal)
 })
 
 form.addEventListener('submit', (event) => {

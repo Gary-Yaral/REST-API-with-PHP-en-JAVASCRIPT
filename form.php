@@ -8,10 +8,14 @@
   <title>API</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container-data">
     <h2>Books Rest API</h2>
     <section class="data-form card">
       <form id="form-add">
+        <center>
+          <h4>New Book</h4>
+        </center>
+        <br>
         <section>
           <div id="book-data" class="book-data">
             <label for="name">Name:</label>
@@ -23,7 +27,7 @@
             <label for="year">Year:</label>
             <input type="text" id="year" name="year">
           </div>
-          <input type="submit" value="Agregar">
+          <input type="submit" value="Add">
         </section>
       </form>
     </section>
@@ -32,11 +36,11 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Autor</th>
-            <th>Año</th>
-            <th>Opciones</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Options</th>
           </tr>
         </thead>
         <tbody> 
@@ -45,9 +49,11 @@
     </section>
   </div>
   <footer>Powered by Gary Yaral &copy</footer>
-  <section id="modal" class="update hidden">
+  <section id="modal" class="modal-update hidden">
     <div id="closeModal" class="close">X</div>
     <form id="form-update" class="form-update">
+      <center><h4>Update Book</h4></center>
+      <br>
       <section>
         <div id="book-data" class="book-data">
           <label for="name">Name:</label>
@@ -59,11 +65,11 @@
           <label for="year">Year:</label>
           <input type="text" id="year" name="year">
         </div>
-        <input type="submit" value="Agregar">
+        <input type="submit" value="Save changes">
       </section>
     </form>
   </section>
-  <script src="js/modal-alert.js"></script>
+  <script src="js/sweet-alert.js"></script>
   <script src="js/api.js"></script>
 </body>
 </html>

@@ -32,6 +32,6 @@
     array_push($json_file,$newBook);
     $json = json_encode($json_file);
     file_put_contents($file_route,$json);
-    echo json_encode(array("message" => 'Product added successfully'));    
+    echo json_encode(array("message" => 'Added'));    
   }
 ?>
